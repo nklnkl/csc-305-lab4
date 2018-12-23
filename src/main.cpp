@@ -14,10 +14,6 @@ int main () {
   int childPipeFd [2];
   pipe(parentPipeFd);
   pipe(childPipeFd);
-  char buffer [20];
-
-  // Sum
-  unsigned int sum = 0;
 
   // If in child process.
   if (pid == 0) {
@@ -34,15 +30,16 @@ int main () {
     for (int i = 1; i <= 5; i++) {
       childSum += i;
     }
+    cout << "Child partial sum is " << childSum << endl;
 
-    cout << "Child sending " << childSum << " to parent" << endl;
+    cout << "Child sent " << childSum << " to parent" << endl;
 
     write(childPipeFd[1], &childSum, sizeof(childSum));
   }
 
   // Else if in parent proccess.
   else {
-    cout << "Parent process receiving" << childPipeFd[0] << " from child" << endl;
+    cout << "Parent process received " << childPipeFd[0] << " from child" << endl;
     int totalSum = childPipeFd[0];
     
     // Close read of parent pipe.
@@ -59,6 +56,7 @@ int main () {
     totalSum += parentSum;
 
     cout << "Parent partial sum is " << parentSum << endl;
+
     cout << "Parent computed final sum " << totalSum << endl;
   }
   
