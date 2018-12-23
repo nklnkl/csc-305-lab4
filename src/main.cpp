@@ -35,6 +35,8 @@ int main () {
     cout << "Child sent " << childSum << " to parent" << endl;
 
     write(childPipeFd[1], &childSum, sizeof(childSum));
+
+    close(childPipeFd[1]);
   }
 
   // Else if in parent proccess.
