@@ -39,6 +39,9 @@ int main () {
 
   // Else if in parent proccess.
   else {
+
+    sleep(1);
+
     cout << "Parent process received " << childPipeFd[0] << " from child" << endl;
     int totalSum = childPipeFd[0];
     
